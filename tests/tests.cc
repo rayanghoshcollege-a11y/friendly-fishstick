@@ -74,3 +74,13 @@ TEST_CASE("Example: Print Prompt Ledger", "[ex-3]") {
   atm.PrintLedger("./prompt.txt", 12345678, 1234);
   REQUIRE(CompareFiles("./ex-1.txt", "./prompt.txt"));
 }
+
+TEST_CASE("CheckBalance Test", "4") { 
+  Atm atm; atm.RegisterAccount(12345678, 1234, "Sam Sepiol", 300.30); 
+  atm.RegisterAccount(45678910, 4321, "Warren Hsu", 100000.30); 
+  auto accounts = atm.GetAccounts(); 
+  Account sam_account = accounts[{12345678, 1234}]; 
+  Account warren_account = accounts[{45678910, 4321}]; 
+  REQUIRE(atm.CheckBalance(12345678, 1234) == sam_account.balance); 
+  REQUIRE(atm.CheckBalance(45678910, 4321) == warren_account.balance); 
+}
